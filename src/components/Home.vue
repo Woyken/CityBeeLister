@@ -20,18 +20,15 @@
                     </div>
                     <div class="media-content">
                       <p class="title is-4">{{ carDetail.carDetails.make }}</p>
-                      <p class="subtitle is-6">{{ exampleProperty }}@johnsmith</p>
+                      <p class="subtitle is-6">{{ carDetail.carDetails.model }}</p>
+                      <p class="subtitle is-6">{{ carDetail.carDetails.license_plate }}</p>
                     </div>
                   </div>
 
                   <div class="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus nec iaculis mauris.
-                    <a>@bulmaio</a>.
-                    <a href="#">#css</a>
-                    <a href="#">#responsive</a>
+                    Fuel: {{ carDetail.carDetails.fuel_capacity }}%
                     <br>
-                    <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                    <p>Current location: {{ carDetail.carAvailable.address }}</p>
                   </div>
                 </div>
               </div>
