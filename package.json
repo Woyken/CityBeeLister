@@ -1,0 +1,39 @@
+{
+  "name": "typescript-vue-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config build/webpack.prod.js",
+    "develop": "webpack --watch --config build/webpack.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Daniel Rosenwasser",
+    "url": "https://github.com/DanielRosenwasser"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bulma": "^0.7.4",
+    "vue": "^2.6.9",
+    "vue-class-component": "^7.0.1",
+    "vue-property-decorator": "^8.0.0",
+    "vue-router": "^3.0.2",
+    "webpack-merge": "^4.2.1"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^2.0.1",
+    "css-loader": "^2.1.1",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.9",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
+}
