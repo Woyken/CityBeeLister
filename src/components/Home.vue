@@ -20,7 +20,7 @@
       </div>
       <div class="column is-10">
         <h1 class="title">The list</h1>
-        <p class="subtitle">{{ workStatus }}</p>
+        <p class="subtitle">{{ tasksAsString }}</p>
         <div class="columns">
           <div class="column">
             <div v-for="carDetail in carsDetailedInfo" :key="carDetail.carAvailable.id">
