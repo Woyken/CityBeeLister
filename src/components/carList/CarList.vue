@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column">
         <h2 class="title">CityBees</h2>
-        <p>Right, so this is a list of CityBees around.</p>
+        <p>Here is shown list of CityBees around you. If location access provided, list will be sorted by distance to you</p>
         <br>
         <p
           v-if="myPosition"

@@ -13,7 +13,10 @@ import { routes } from '../../router/routes';
 })
 export default class Header extends vue {
     public isActive: boolean = false;
-    public routes: RouteConfig[] = routes;
+    public routes: RouteConfig[] = [
+        { name: 'Cars List', path: '/' },
+        { name: 'About', path: '/about' },
+    ];
 
     public toggleNav() {
         this.isActive = !this.isActive;

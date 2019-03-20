@@ -2,7 +2,7 @@
   <nav class="navbar is-primary">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item" href="../" style="font-weight:bold;">
+        <a class="navbar-item" style="font-weight:bold;">
           <div class="title">CityBee lister</div>
         </a>
         <span
