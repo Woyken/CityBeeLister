@@ -1,11 +1,11 @@
 import { RouteConfig } from 'vue-router';
-import HomeVue from '../components/Home.vue';
+import CarListVue from '../components/CarList/CarList.vue';
 import LoginVue from '../components/login/Login.vue';
 
-const t: RouteConfig = { component: HomeVue, path: '' };
+const t: RouteConfig = { component: CarListVue, path: '' };
 
 export const routes: RouteConfig[] = [
-  { name: 'list', path: '/', component: HomeVue },
+  { name: 'carList', path: '/', component: CarListVue },
   { name: 'login', path: '/login', component: LoginVue },
   { path: '*', redirect: '/' },
   // { name: 'counter', path: '/counter', component: CounterExample },

@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import HomePage from "./Home";
-export default HomePage;
+import CarList from "./CarList";
+export default CarList;
 </script>
 

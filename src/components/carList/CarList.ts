@@ -1,8 +1,7 @@
 import vue from 'vue';
 import vueClassComponent from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
-import getData from '../getData';
-import { LocationHelper } from '../locationHelper';
+import getData from '../../getData';
+import { LocationHelper } from '../../locationHelper';
 
 enum TasksOngoing {
     FetchingCarDetails,
@@ -10,10 +9,10 @@ enum TasksOngoing {
 }
 
 @vueClassComponent({
-    name: 'Home',
+    name: 'CarList',
 })
 
-export default class Home extends vue {
+export default class CarList extends vue {
     public carsDetailedInfo: CarDetailedInfo[] = [];
     public myPosition: Position | null = null;
     public tasksAsString: string = '';
@@ -23,7 +22,7 @@ export default class Home extends vue {
         super();
     }
 
-    public async mounted() {
+    public async created() {
         // const token = localStorage.getItem("CityBeeToken");
         // if (token === "" || token === undefined) {
         // 	router.replace("/login");
