@@ -38,7 +38,7 @@
                   </div>
 
                   <div class="content">
-                    Fuel: {{ carDetail.carDetails.fuel_capacity }}%
+                    Fuel: {{ (carDetail.carAvailable.fuel_level/carDetail.carDetails.fuel_capacity*100).toFixed(0) }}%
                     <br>
                     <p>Location: {{ carDetail.carAvailable.address }}</p>
                   </div>
