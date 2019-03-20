@@ -9,8 +9,7 @@ import { LocationHelper } from "../locationHelper";
 
 export default class Home extends Vue {
 	carsDetailedInfo: CarDetailedInfo[] = [];
-	myCoordsLat: number = 0;
-	myCoordsLong: number = 0;
+	myPosition: Position | null = null;
 	workStatus: string = "Starting...";
 
 	constructor() {
@@ -25,20 +24,28 @@ export default class Home extends Vue {
 		this.updateCarList();
 	}
 
-	updateMyLocation() {
-		this.workStatus = "List is unsorted. Waiting for location access to sort car list.";
-		new LocationHelper().getCurrentLocation().then((pos) => {
-			this.myCoordsLat = pos.coords.latitude;
-			this.myCoordsLong = pos.coords.longitude;
-			new LocationHelper().sortByDistance(pos.coords, this.carsDetailedInfo);
-			this.workStatus = "";
-		})
+	async sortCarList() {
+		if(this.myPosition) {
+			new LocationHelper().sortByDistance(this.myPosition.coords, this.carsDetailedInfo);
+		}
+	}
+
+	async updateMyLocation() {
+		this.workStatus = "Waiting for location access to sort car list.";
+		try {
+			this.myPosition = await new LocationHelper().getCurrentLocation()
+		} catch (error) {
+
+		}
+		this.sortCarList();
+		this.workStatus = "";
 	}
 
 	async updateCarList() {
 		const token = null;
 		this.workStatus = "Getting car list...";
 		this.carsDetailedInfo = await new GetCityBeeData().getFullMergedCarsDetails(token!);
+		this.sortCarList();
 		this.updateMyLocation();
 	}
 }
