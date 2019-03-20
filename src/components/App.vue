@@ -2,12 +2,6 @@
 <template>
 	<div>
 		<page-header/>
-		<!--input v-model="msg">
-		<p>prop: {{propMessage}}</p>
-		<p>msg: {{msg}}</p>
-		<p>helloMsg: {{helloMsg}}</p>
-		<p>computed msg: {{routes}}</p>
-		<button @click="greet">Greet me!</button-->
 		<div class="columns">
 			<div class="column">
 			</div>

@@ -1,9 +1,9 @@
 {
-  "name": "typescript-vue-starter",
+  "name": "citybee-lister",
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "main": "index.js",
+  "main": "./dist/app.js",
   "scripts": {
     "build": "webpack --config build/webpack.prod.js",
     "develop": "webpack --watch --config build/webpack.dev.js",
@@ -11,8 +11,8 @@
   },
   "keywords": [],
   "author": {
-    "name": "Daniel Rosenwasser",
-    "url": "https://github.com/DanielRosenwasser"
+    "name": "Karolis Uzkuraitis",
+    "url": "https://github.com/Woyken"
   },
   "license": "Apache-2.0",
   "dependencies": {
@@ -20,10 +20,13 @@
     "vue": "^2.6.9",
     "vue-class-component": "^7.0.1",
     "vue-property-decorator": "^8.0.0",
-    "vue-router": "^3.0.2",
-    "webpack-merge": "^4.2.1"
+    "vue-router": "^3.0.2"
   },
   "devDependencies": {
+    "webpack-merge": "^4.2.1",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",
     "friendly-errors-webpack-plugin": "^1.7.0",

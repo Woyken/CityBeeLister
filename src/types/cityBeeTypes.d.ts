@@ -96,3 +96,8 @@ interface LoginResponse {
 //     ".expires": "Tue, 19 Mar 2019 19:30:58 GMT"
 // }
 
+
+interface CarDetailedInfo {
+	carDetails: CarDetails;
+	carAvailable: AvailableCar;
+}

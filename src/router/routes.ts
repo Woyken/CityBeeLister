@@ -1,5 +1,5 @@
 import HomePage from '../components/Home.vue'
-import Login from '../components/portfolio/Login.vue'
+import Login from '../components/login/Login.vue'
 import { RouteConfig } from 'vue-router';
 
 let t: RouteConfig = { component: HomePage, path: "" }
