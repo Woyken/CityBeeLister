@@ -6,7 +6,8 @@ Vue.use(VueRouter)
 
 let router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
+  base: "CityBeeLister"
 })
 
 export default router
