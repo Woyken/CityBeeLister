@@ -1,19 +1,22 @@
-import Vue from "vue";
-import router from "./router";
-import App from './components/App.vue'
+import vue from 'vue';
+import router from './router';
+// If we AppVue import goes above router, router stops working for some reason.
+// tslint:disable-next-line:ordered-imports
+import AppVue from './components/App.vue';
 
-import 'bulma/css/bulma.css'
+import 'bulma/css/bulma.css';
 // import './css/app.css'
 
-new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App, {
-        props: {
-            propMessage: 'World'
-        }
-    }),
+const vueInstance = new vue({
+    router,
+    // tslint:disable-next-line:object-literal-sort-keys
     data: {
-        exampleProperty: String
-    }
-})
+        exampleProperty: String,
+    },
+    el: '#app',
+    render: h => h(AppVue, {
+        props: {
+            propMessage: 'World',
+        },
+    }),
+});

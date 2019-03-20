@@ -1,17 +1,17 @@
 // Import the core Vue.js dependency.
-import Vue from 'vue'
+import vue from 'vue';
 // Import the Vue.js class component.
-import Component from 'vue-class-component'
+import vueClassComponent from 'vue-class-component';
 
-import PageHeader from './header/Header.vue'
-import PageSidebar from './header/Sidebar.vue'
+import HeaderVue from './header/Header.vue';
+import SidebarVue from './header/Sidebar.vue';
 
-@Component({
-	name: "App",
-	  components: {
-		PageHeader,
-		PageSidebar
-	}
+@vueClassComponent({
+    components: {
+        HeaderVue,
+        SidebarVue,
+    },
+    name: 'App',
 })
-export default class App extends Vue {
+export default class App extends vue {
 }

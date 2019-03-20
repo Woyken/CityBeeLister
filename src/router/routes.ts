@@ -1,12 +1,12 @@
-import HomePage from '../components/Home.vue'
-import Login from '../components/login/Login.vue'
 import { RouteConfig } from 'vue-router';
+import HomeVue from '../components/Home.vue';
+import LoginVue from '../components/login/Login.vue';
 
-let t: RouteConfig = { component: HomePage, path: "" }
+const t: RouteConfig = { component: HomeVue, path: '' };
 
 export const routes: RouteConfig[] = [
-  { name: 'list', path: '/', component: HomePage },
-  { name: 'login', path: '/login', component: Login },
-  { path: '*', redirect: '/' }
+  { name: 'list', path: '/', component: HomeVue },
+  { name: 'login', path: '/login', component: LoginVue },
+  { path: '*', redirect: '/' },
   // { name: 'counter', path: '/counter', component: CounterExample },
-]
+];

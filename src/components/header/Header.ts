@@ -1,23 +1,21 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import vue from 'vue';
+import vueClassComponent from 'vue-class-component';
 
-import { routes } from '../../router/routes'
 import { RouteConfig } from 'vue-router';
+import { routes } from '../../router/routes';
 
-
-@Component({
-	name: "Header",
-  	props: {
-    	propMessage: String
-	  },
-	  components: {
-	}
+@vueClassComponent({
+    components: {},
+    name: 'Header',
+    props: {
+        propMessage: String,
+    },
 })
-export default class Header extends Vue {
-	isActive: boolean = false;
-	routes: RouteConfig[] = routes;
+export default class Header extends vue {
+    public isActive: boolean = false;
+    public routes: RouteConfig[] = routes;
 
-	toggleNav() {
-		this.isActive = !this.isActive;
-	}
+    public toggleNav() {
+        this.isActive = !this.isActive;
+    }
 }

@@ -5,7 +5,9 @@
         <h2 class="title">CityBees</h2>
         <p>Right, so this is a list of CityBees around.</p>
         <br>
-        <p v-if="myPosition">Current coordinates: {{ myPosition.coords.latitude }}, {{ myPosition.coords.longitude }}</p>
+        <p
+          v-if="myPosition"
+        >Current coordinates: {{ myPosition.coords.latitude }}, {{ myPosition.coords.longitude }}</p>
         <p v-else>Your location is unknown, car list will not be sorted.</p>
         <button
           class="button is-block is-info is-medium"

@@ -1,62 +1,67 @@
+import configuration from './configuration';
+
 export class GetCityBeeData {
-    constructor() {
-    }
+    public carsDetailsCached!: CarsDetails;
 
     public getLoginToken(username: string, password: string): Promise<LoginResponse> {
-        const response = fetch("https://citybee-authorize-production-lt.azurewebsites.net/token", {
-            method: "POST",
+        const response = fetch(`${configuration.AUTHORIZATION_URL}/token`, {
+            body: `grant_type=password&username=${escape(username)}&password=${escape(password)}`,
             headers: {
-                "App-Version": "9.9.9"
+                'App-Version': configuration.APP_VERSION,
             },
-            body: `grant_type=password&username=${escape(username)}&password=${escape(password)}`
+            method: 'POST',
         });
         return response.then((result: any) => {
             return new Promise<LoginResponse>((resolve, reject) => {
-                resolve(result.json() as LoginResponse)
-            })
-        })
+                resolve(result.json() as LoginResponse);
+            });
+        });
     }
 
     public getAvailableCars(authToken: string): Promise<AvailableCars> {
-        const response = fetch("https://citybee-webapp-production-lt.azurewebsites.net/api/CarsLive/GetAvailableCars", {
-            method: "GET",
+        const response = fetch(`${configuration.WEBAPP_URL}/api/CarsLive/GetAvailableCars`, {
             headers: {
+                'App-Version': configuration.APP_VERSION,
                 Authorization: `Bearer ${authToken}`,
-                "App-Version": "9.9.9"
             },
+            method: 'GET',
         });
         return response.then((result: any) => {
             return new Promise<AvailableCars>((resolve, reject) => {
-                resolve(result.json() as AvailableCars)
-            })
-        })
+                resolve(result.json() as AvailableCars);
+            });
+        });
     }
 
     public getCarsDetails(authToken: string): Promise<CarsDetails> {
-        const response = fetch("https://citybee-webapp-production-lt.azurewebsites.net/api/CarsLive/GetCarsDetails", {
-            method: "GET",
+        if (this.carsDetailsCached) {
+            return Promise.resolve(this.carsDetailsCached);
+        }
+        const response = fetch(`${configuration.WEBAPP_URL}/api/CarsLive/GetCarsDetails`, {
             headers: {
+                'App-Version': configuration.APP_VERSION,
                 Authorization: `Bearer ${authToken}`,
-                "App-Version": "9.9.9"
             },
+            method: 'GET',
         });
         return response.then((result: any) => {
             return new Promise<CarsDetails>((resolve, reject) => {
-                resolve(result.json() as CarsDetails)
-            })
-        })
+                this.carsDetailsCached = result.json() as CarsDetails;
+                resolve(this.carsDetailsCached);
+            });
+        });
     }
 
     public async getFullMergedCarsDetails(authToken: string): Promise<CarDetailedInfo[]> {
         const [carsAvailable, carsDetails] = await Promise.all([
             this.getAvailableCars(authToken),
-            this.getCarsDetails(authToken)
+            this.getCarsDetails(authToken),
         ]);
         const carsDetailedInfo: CarDetailedInfo[] = [];
-        carsAvailable.forEach(carAvail => {
-            carsDetails.forEach(carDetails => {
+        carsAvailable.forEach((carAvail) => {
+            carsDetails.forEach((carDetails) => {
                 if (carAvail.id === carDetails.id) {
-                    carsDetailedInfo.push({ carAvailable: carAvail, carDetails: carDetails });
+                    carsDetailedInfo.push({ carDetails, carAvailable: carAvail });
                 }
             });
         });

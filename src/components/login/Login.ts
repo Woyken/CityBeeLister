@@ -1,22 +1,21 @@
-import Vue from "vue";
-import Component from 'vue-class-component'
-import { GetCityBeeData } from "../../getData";
-import router from "../../router";
+import vue from 'vue';
+import vueClassComponent from 'vue-class-component';
+import { GetCityBeeData } from '../../getData';
+import router from '../../router';
 
-
-@Component({
-	name: "Login",
+@vueClassComponent({
+    name: 'Login',
 })
 
-export default class Login extends Vue {
-	username!: string;
-	password!: string;
+export default class Login extends vue {
+    public username!: string;
+    public password!: string;
 
-	login() {
-		new GetCityBeeData().getLoginToken(this.username, this.password).then((loginResponse) => {
+    public login() {
+        new GetCityBeeData().getLoginToken(this.username, this.password).then((loginResponse) => {
 
-			localStorage.setItem('CityBeeToken', loginResponse.access_token);
-			router.replace("/");
-		});
-	}
+            localStorage.setItem('CityBeeToken', loginResponse.access_token);
+            router.replace('/');
+        });
+    }
 }

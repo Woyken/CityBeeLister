@@ -1,13 +1,14 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import { routes } from './routes'
+import vue from 'vue';
+import vueRouter from 'vue-router';
+import { routes } from './routes';
 
-Vue.use(VueRouter)
+vue.use(vueRouter);
 
-let router = new VueRouter({
-  mode: 'hash',
-  routes,
-  base: "CityBeeLister"
-})
+const router = new vueRouter({
+    routes,
+  // tslint:disable-next-line:object-literal-sort-keys
+    base: 'CityBeeLister',
+    mode: 'hash',
+});
 
-export default router
+export default router;
