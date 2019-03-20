@@ -20,7 +20,7 @@
         <p class="subtitle">{{ workStatus }}</p>
         <div class="columns">
           <div class="column">
-            <div v-for="carDetail in carDetailedInfo" :key="carDetail.carAvailable.id">
+            <div v-for="carDetail in carsDetailedInfo" :key="carDetail.carAvailable.id">
               <div class="card">
                 <div class="card-content">
                   <div class="media">

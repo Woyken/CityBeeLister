@@ -46,4 +46,20 @@ export class GetCityBeeData {
             })
         })
     }
+
+    public async getFullMergedCarsDetails(authToken: string): Promise<CarDetailedInfo[]> {
+        const [carsAvailable, carsDetails] = await Promise.all([
+            this.getAvailableCars(authToken),
+            this.getCarsDetails(authToken)
+        ]);
+        const carsDetailedInfo: CarDetailedInfo[] = [];
+        carsAvailable.forEach(carAvail => {
+            carsDetails.forEach(carDetails => {
+                if (carAvail.id === carDetails.id) {
+                    carsDetailedInfo.push({ carAvailable: carAvail, carDetails: carDetails });
+                }
+            });
+        });
+        return carsDetailedInfo;
+    }
 }

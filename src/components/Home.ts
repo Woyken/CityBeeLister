@@ -8,9 +8,7 @@ import { LocationHelper } from "../locationHelper";
 })
 
 export default class Home extends Vue {
-	carsDetails: CarsDetails = [];
-	carsAvailable: AvailableCars = [];
-	carDetailedInfo: CarDetailedInfo[] = [];
+	carsDetailedInfo: CarDetailedInfo[] = [];
 	myCoordsLat: number = 0;
 	myCoordsLong: number = 0;
 	workStatus: string = "Starting...";
@@ -32,29 +30,15 @@ export default class Home extends Vue {
 		new LocationHelper().getCurrentLocation().then((pos) => {
 			this.myCoordsLat = pos.coords.latitude;
 			this.myCoordsLong = pos.coords.longitude;
-			new LocationHelper().sortByDistance(pos.coords, this.carDetailedInfo);
+			new LocationHelper().sortByDistance(pos.coords, this.carsDetailedInfo);
 			this.workStatus = "";
 		})
 	}
 
-	updateCarList() {
+	async updateCarList() {
 		const token = null;
 		this.workStatus = "Getting car list...";
-		new GetCityBeeData().getAvailableCars(token!).then((cars) => {
-			this.carsAvailable = cars;
-			new GetCityBeeData().getCarsDetails(token!).then((cars) => {
-				this.carsDetails = cars;
-				this.carDetailedInfo = [];
-				this.carsAvailable.forEach(carAvail => {
-					this.carsDetails.forEach(carDetails => {
-						if (carAvail.id === carDetails.id) {
-							this.carDetailedInfo.push({ carAvailable: carAvail, carDetails: carDetails });
-						}
-					});
-				});
-
-				this.updateMyLocation();
-			});
-		});
+		this.carsDetailedInfo = await new GetCityBeeData().getFullMergedCarsDetails(token!);
+		this.updateMyLocation();
 	}
 }
