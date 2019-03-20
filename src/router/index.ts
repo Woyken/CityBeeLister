@@ -5,7 +5,7 @@ import { routes } from './routes'
 Vue.use(VueRouter)
 
 let router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   routes,
   base: "CityBeeLister"
 })
