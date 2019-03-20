@@ -1,6 +1,6 @@
 import { RouteConfig } from 'vue-router';
 import AboutVue from '../components/about/About.vue';
-import CarListVue from '../components/CarList/CarList.vue';
+import CarListVue from '../components/carList/CarList.vue';
 import LoginVue from '../components/login/Login.vue';
 
 const t: RouteConfig = { component: CarListVue, path: '' };
