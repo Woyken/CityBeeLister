@@ -1,6 +1,6 @@
 import vue from 'vue';
 import vueClassComponent from 'vue-class-component';
-import { GetCityBeeData } from '../getData';
+import getData from '../getData';
 import { LocationHelper } from '../locationHelper';
 
 @vueClassComponent({
@@ -16,12 +16,13 @@ export default class Home extends vue {
         super();
     }
 
-    public mounted() {
+    public async mounted() {
         // const token = localStorage.getItem("CityBeeToken");
         // if (token === "" || token === undefined) {
         // 	router.replace("/login");
         // }
         this.updateCarList();
+        this.updateMyLocation();
     }
 
     public async sortCarList() {
@@ -44,7 +45,7 @@ export default class Home extends vue {
     public async updateCarList() {
         const token = null;
         this.workStatus = 'Getting car list...';
-        this.carsDetailedInfo = await new GetCityBeeData().getFullMergedCarsDetails(token!);
+        this.carsDetailedInfo = await getData.getFullMergedCarsDetails(token!);
         this.sortCarList();
         this.updateMyLocation();
     }

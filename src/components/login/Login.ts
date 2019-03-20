@@ -1,6 +1,6 @@
 import vue from 'vue';
 import vueClassComponent from 'vue-class-component';
-import { GetCityBeeData } from '../../getData';
+import getData from '../../getData';
 import router from '../../router';
 
 @vueClassComponent({
@@ -12,8 +12,7 @@ export default class Login extends vue {
     public password!: string;
 
     public login() {
-        new GetCityBeeData().getLoginToken(this.username, this.password).then((loginResponse) => {
-
+        getData.getLoginToken(this.username, this.password).then((loginResponse: any) => {
             localStorage.setItem('CityBeeToken', loginResponse.access_token);
             router.replace('/');
         });

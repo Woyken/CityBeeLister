@@ -1,6 +1,6 @@
 import configuration from './configuration';
 
-export class GetCityBeeData {
+class GetCityBeeData {
     public carsDetailsCached!: CarsDetails;
 
     public getLoginToken(username: string, password: string): Promise<LoginResponse> {
@@ -12,9 +12,7 @@ export class GetCityBeeData {
             method: 'POST',
         });
         return response.then((result: any) => {
-            return new Promise<LoginResponse>((resolve, reject) => {
-                resolve(result.json() as LoginResponse);
-            });
+            return Promise.resolve(result.json() as LoginResponse);
         });
     }
 
@@ -27,9 +25,7 @@ export class GetCityBeeData {
             method: 'GET',
         });
         return response.then((result: any) => {
-            return new Promise<AvailableCars>((resolve, reject) => {
-                resolve(result.json() as AvailableCars);
-            });
+            return Promise.resolve(result.json() as AvailableCars);
         });
     }
 
@@ -45,10 +41,8 @@ export class GetCityBeeData {
             method: 'GET',
         });
         return response.then((result: any) => {
-            return new Promise<CarsDetails>((resolve, reject) => {
-                this.carsDetailsCached = result.json() as CarsDetails;
-                resolve(this.carsDetailsCached);
-            });
+            this.carsDetailsCached = result.json() as CarsDetails;
+            return Promise.resolve(this.carsDetailsCached);
         });
     }
 
@@ -68,3 +62,7 @@ export class GetCityBeeData {
         return carsDetailedInfo;
     }
 }
+
+const getCityBeeData = new GetCityBeeData();
+
+export default getCityBeeData;
