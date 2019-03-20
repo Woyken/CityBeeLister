@@ -8,8 +8,8 @@ import router from '../../router';
 })
 
 export default class Login extends vue {
-    public username!: string;
-    public password!: string;
+    public username: string = '';
+    public password: string = '';
 
     public login() {
         getData.getLoginToken(this.username, this.password).then((loginResponse: any) => {

@@ -8,7 +8,9 @@
     <div class="columns">
       <div class="column messages hero is-fullheight">
         <div class="container">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </div>
       </div>
     </div>

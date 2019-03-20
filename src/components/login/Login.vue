@@ -27,19 +27,8 @@
                 >
               </div>
             </div>
-            <div class="field">
-              <label class="checkbox">
-                <input type="checkbox">
-                Remember me
-              </label>
-            </div>
             <button class="button is-block is-info is-large is-fullwidth" v-on:click="login">Login</button>
           </div>
-          <p class="has-text-grey">
-            <a href="../">Sign Up</a> &nbsp;·&nbsp;
-            <a href="../">Forgot Password</a> &nbsp;·&nbsp;
-            <a href="../">Need Help?</a>
-          </p>
         </div>
       </div>
     </div>
