@@ -17,6 +17,7 @@ export default class CarList extends vue {
     public myPosition: Position | null = null;
     public tasksAsString: string = '';
     public tasksOngoing: Set<TasksOngoing> = new Set();
+    public filterByLPN: string = '';
 
     constructor() {
         super();
@@ -56,9 +57,22 @@ export default class CarList extends vue {
         this.updateTasksString();
         const token = null;
         this.carsDetailedInfo = await getData.getFullMergedCarsDetails(token!);
+        this.filterCarListByLPN();
         this.sortCarList();
         this.tasksOngoing.delete(TasksOngoing.FetchingCarDetails);
         this.updateTasksString();
+    }
+
+    public async filterCarListByLPN() {
+        const filterByLicensePlates = this.filterByLPN.split(',');
+
+        if (filterByLicensePlates.length <= 0 || !this.filterByLPN) {
+            return;
+        }
+
+        this.carsDetailedInfo = this.carsDetailedInfo.filter((carDetailedInfo) => {
+            return filterByLicensePlates.findIndex((plate) => plate === carDetailedInfo.carDetails.license_plate) >= 0;
+        })
     }
 
     public updateTasksString(): void {

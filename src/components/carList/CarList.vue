@@ -17,6 +17,12 @@
           class="button is-block is-primary is-medium"
           v-on:click="updateCarList"
         >Refresh the list</button>
+        <div class="field">
+          <label class="label">Filter cars by License plate number</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="ABC123,GHJ456" v-model="filterByLPN" @change="filterCarListByLPN"></textarea>
+          </div>
+        </div>
       </div>
       <div class="column is-10">
         <h1 class="title">The list</h1>
