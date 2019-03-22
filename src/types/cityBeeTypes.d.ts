@@ -101,3 +101,99 @@ interface CarDetailedInfo {
 	carDetails: CarDetails;
 	carAvailable: AvailableCar;
 }
+
+interface CityBeeReservationInitializeResponse {
+    /** Reservation ID */
+    id: number;
+    /** Vehicle ID */
+    asset_id: number;
+    trip_start_countdown: string;
+    trip_active_timer: string;
+    reservation_status: number;
+    make: string;
+    model: string;
+    number_plate: string;
+    picture: string;
+    price_time: number;
+    price_distance: number;
+    price_total: number;
+    lat: number;
+    long: number;
+    is_electric: boolean;
+    is_cargo: boolean;
+    asset_type: number;
+    start_address: string;
+}
+
+interface CityBeeReservationCurrentResponse extends CityBeeReservationInitializeResponse {
+    fuel_level: number;
+}
+
+/** POST /api/AssetReservation/Stop/123456 RESPONSE */
+interface CityBeeReservationStoppedResponse {
+    license_plate: string;
+    trip_time: string;
+    time_price_vat: number;
+    distance_price_vat: number;
+    pre_discount_price_vat: number;
+    total_discount_vat: number;
+    parking_price: number;
+    asset_type: number;
+    latitude_from: number;
+    longitude_from: number;
+    latitude_to: number;
+    longitude_to: number;
+    id: number;
+    make: string;
+    model: string;
+    start_address: string;
+    end_address: string;
+    image_2d_uri: string;
+    trip_start_datetime: Date;
+    trip_end_datetime: Date;
+    trip_distance: number;
+    total_price_vat: number;
+}
+
+type CityBeeReservationStopBody = null;
+
+interface CityBeeHistoricalReservationDetails {
+    license_plate: string;
+    trip_time: string;
+    time_price_vat: number;
+    distance_price_vat: number;
+    pre_discount_price_vat: number;
+    total_discount_vat: number;
+    parking_price: number;
+    asset_type: number;
+    latitude_from: number;
+    longitude_from: number;
+    latitude_to: number;
+    longitude_to: number;
+    id: number;
+    make: string;
+    model: string;
+    start_address: string;
+    end_address: string;
+    image_2d_uri: string;
+    trip_start_datetime: Date;
+    trip_end_datetime: Date;
+    trip_distance: number;
+    total_price_vat: number;
+}
+
+interface CityBeeHistoricalReservationResponse {
+    total_number: number;
+    reservations: CityBeeHistoricalReservationDetails[];
+}
+
+interface CityBeeReservationInitializeBody {
+    /** Vehicle id */
+    AssetId: number;
+    /** For reservation: 0, otherwise, unknown */
+    StartType: number;
+    /** "0" */
+    Software: string;
+    /** 0 */
+    ReservationType: number;
+}
