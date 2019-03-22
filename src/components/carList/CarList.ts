@@ -2,6 +2,7 @@ import vue from 'vue';
 import vueClassComponent from 'vue-class-component';
 import getData from '../../getData';
 import { LocationHelper } from '../../locationHelper';
+import router from '../../router';
 
 enum TasksOngoing {
     FetchingCarDetails,
@@ -18,6 +19,7 @@ export default class CarList extends vue {
     public tasksAsString: string = '';
     public tasksOngoing: Set<TasksOngoing> = new Set();
     public filterByLPN: string = '';
+    public selectedCarDetails: CarDetailedInfo | null = null;
 
     constructor() {
         super();
@@ -55,8 +57,7 @@ export default class CarList extends vue {
         this.updateMyLocation();
         this.tasksOngoing.add(TasksOngoing.FetchingCarDetails);
         this.updateTasksString();
-        const token = null;
-        this.carsDetailedInfo = await getData.getFullMergedCarsDetails(token!);
+        this.carsDetailedInfo = await getData.getFullMergedCarsDetails();
         this.filterCarListByLPN();
         this.sortCarList();
         this.tasksOngoing.delete(TasksOngoing.FetchingCarDetails);
@@ -71,8 +72,11 @@ export default class CarList extends vue {
         }
 
         this.carsDetailedInfo = this.carsDetailedInfo.filter((carDetailedInfo) => {
-            return filterByLicensePlates.findIndex((plate) => plate === carDetailedInfo.carDetails.license_plate) >= 0;
-        })
+            return filterByLicensePlates.findIndex((plate) => {
+                return plate === carDetailedInfo.carDetails.license_plate;
+            },
+            ) >= 0;
+        });
     }
 
     public updateTasksString(): void {
@@ -94,5 +98,18 @@ export default class CarList extends vue {
             }
         });
         this.tasksAsString = `Working on: ${taskNames.join(', ')}`;
+    }
+
+    public reserveTheCar(carId: number): void {
+
+        // TODO: Check if car still available;
+
+        try {
+            getData.startReservation(carId);
+
+        } catch (error) {
+            //
+        }
+        router.replace('/about');
     }
 }

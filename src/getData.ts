@@ -1,3 +1,4 @@
+import authorizationHelper from './authorizationHelper';
 import configuration from './configuration';
 
 class GetCityBeeData {
@@ -29,38 +30,35 @@ class GetCityBeeData {
         });
     }
 
-    public getAvailableCars(authToken: string): Promise<AvailableCars> {
-        const response = fetch(`${configuration.WEBAPP_URL}/api/CarsLive/GetAvailableCars`, {
+    public async getAvailableCars(): Promise<AvailableCars> {
+        const response = await fetch(`${configuration.WEBAPP_URL}/api/CarsLive/GetAvailableCars`, {
             headers: {
                 'App-Version': configuration.APP_VERSION,
-                Authorization: `Bearer ${authToken}`,
             },
             method: 'GET',
         });
-        return response.then((result: any) => {
-            return Promise.resolve(result.json() as AvailableCars);
-        });
+        return await response.json() as AvailableCars;
     }
 
-    public getCarsDetails(authToken: string): Promise<CarsDetails> {
+    public async getCarsDetails(): Promise<CarsDetails> {
         if (this.carsDetailsCached) {
-            return Promise.resolve(this.carsDetailsCached);
+            return this.carsDetailsCached;
         }
-        const response = fetch(`${configuration.WEBAPP_URL}/api/CarsLive/GetCarsDetails`, {
+        const response = await fetch(`${configuration.WEBAPP_URL}/api/CarsLive/GetCarsDetails`, {
             headers: {
                 'App-Version': configuration.APP_VERSION,
-                Authorization: `Bearer ${authToken}`,
             },
             method: 'GET',
         });
-        return response.then((result: any) => {
-            this.carsDetailsCached = result.json() as CarsDetails;
-            return Promise.resolve(this.carsDetailsCached);
-        });
+
+        this.carsDetailsCached = await response.json() as CarsDetails;
+        return this.carsDetailsCached;
     }
 
-    public async getCurrentReservation(authToken: string)
+    public async getCurrentReservation(retrying: boolean = false)
     : Promise<CityBeeReservationCurrentResponse> {
+        const authToken: string = await authorizationHelper.getAuthorizationToken();
+
         const result = await fetch(`${configuration.WEBAPP_URL}/api/AssetReservation/GetCurrent`, {
             headers: {
                 'App-Version': configuration.APP_VERSION,
@@ -68,11 +66,26 @@ class GetCityBeeData {
             },
             method: 'GET',
         });
+        switch (result.status) {
+        case 401:
+            // Unauthorized. Try updating token.
+            if (!retrying) {
+                await authorizationHelper.forceRefreshAuthorizationToken();
+                return this.getCurrentReservation(true);
+            }
+            break;
+
+        default:
+            break;
+        }
         return await result.json() as CityBeeReservationCurrentResponse;
     }
 
-    public async startReservation(authToken: string, vehicleId: number)
+    public async startReservation(vehicleId: number, retrying: boolean = false)
     : Promise<CityBeeReservationInitializeResponse> {
+        const authToken: string = await authorizationHelper.getAuthorizationToken();
+        throw new Error('RESERVATION? not yet!.');
+
         const bodyDataJson: CityBeeReservationInitializeBody = {
             AssetId: vehicleId,
             ReservationType: 0,
@@ -87,11 +100,25 @@ class GetCityBeeData {
             },
             method: 'POST',
         });
+        switch (result.status) {
+        case 401:
+            // Unauthorized. Try updating token.
+            if (!retrying) {
+                await authorizationHelper.forceRefreshAuthorizationToken();
+                return this.startReservation(vehicleId, true);
+            }
+            break;
+
+        default:
+            break;
+        }
         return await result.json() as CityBeeReservationInitializeResponse;
     }
 
-    public async stopReservation(authToken: string, reservationId: string)
+    public async stopReservation(reservationId: string, retrying: boolean = false)
     : Promise<CityBeeHistoricalReservationDetails> {
+        const authToken: string = await authorizationHelper.getAuthorizationToken();
+        throw new Error('RESERVATION? not yet!.');
         const bodyData: CityBeeReservationStopBody = null;
         const result =
         await fetch(`${configuration.WEBAPP_URL}/api/AssetReservation/Stop/${reservationId}`, {
@@ -102,13 +129,25 @@ class GetCityBeeData {
             },
             method: 'POST',
         });
+        switch (result.status) {
+        case 401:
+            // Unauthorized. Try updating token.
+            if (!retrying) {
+                await authorizationHelper.forceRefreshAuthorizationToken();
+                return this.stopReservation(reservationId, true);
+            }
+            break;
+
+        default:
+            break;
+        }
         return await result.json() as CityBeeReservationStoppedResponse;
     }
 
-    public async getFullMergedCarsDetails(authToken: string): Promise<CarDetailedInfo[]> {
+    public async getFullMergedCarsDetails(): Promise<CarDetailedInfo[]> {
         const [carsAvailable, carsDetails] = await Promise.all([
-            this.getAvailableCars(authToken),
-            this.getCarsDetails(authToken),
+            this.getAvailableCars(),
+            this.getCarsDetails(),
         ]);
         const carsDetailedInfo: CarDetailedInfo[] = [];
         carsAvailable.forEach((carAvail) => {
