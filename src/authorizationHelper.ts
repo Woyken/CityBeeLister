@@ -2,12 +2,12 @@ import getData from './getData';
 import router from './router';
 
 class AuthorizationHelper {
-    private pLoginData!: LoginResponse | null;
+    private pLoginData: LoginResponse | null = null;
 
     public async getAuthorizationToken(): Promise<string> {
         if (!this.pLoginData) {
-            router.replace('/login');
-            return Promise.reject('');
+            router.push('/login');
+            return Promise.reject('Login required.');
         }
         if (Date.parse(this.pLoginData['.expires']) <= Date.now()) {
             // Expired, try getting new one.
@@ -45,6 +45,10 @@ class AuthorizationHelper {
             return Promise.reject('');
         }
         return this.getAuthorizationToken();
+    }
+
+    public get isAuthorized(): boolean {
+        return !!this.pLoginData;
     }
 }
 

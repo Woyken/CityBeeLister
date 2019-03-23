@@ -12,12 +12,12 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import vue from 'vue';
 
-export default Vue.extend({
-  name: "Sidebar",
-  data: () => {
-    return { msg: "This is sidebar" };
-  }
+export default vue.extend({
+    data: () => {
+        return { msg: 'This is sidebar' };
+    },
+    name: 'Sidebar',
 });
 </script>

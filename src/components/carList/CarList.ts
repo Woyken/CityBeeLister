@@ -1,5 +1,6 @@
 import vue from 'vue';
 import vueClassComponent from 'vue-class-component';
+import authorizationHelper from '../../authorizationHelper';
 import getData from '../../getData';
 import { LocationHelper } from '../../locationHelper';
 import router from '../../router';
@@ -8,11 +9,9 @@ enum TasksOngoing {
     FetchingCarDetails,
     FindingLocation,
 }
-
 @vueClassComponent({
     name: 'CarList',
 })
-
 export default class CarList extends vue {
     public carsDetailedInfo: CarDetailedInfo[] = [];
     public myPosition: Position | null = null;
@@ -20,6 +19,7 @@ export default class CarList extends vue {
     public tasksOngoing: Set<TasksOngoing> = new Set();
     public filterByLPN: string = '';
     public selectedCarDetails: CarDetailedInfo | null = null;
+    private authorizationHelper = authorizationHelper;
 
     constructor() {
         super();
@@ -100,16 +100,17 @@ export default class CarList extends vue {
         this.tasksAsString = `Working on: ${taskNames.join(', ')}`;
     }
 
-    public reserveTheCar(carId: number): void {
-
+    public async reserveTheCar(carId: number) {
+        (this.$refs.finalConfirmationReservation as Element).classList.remove('is-active');
+        (this.$refs.acceptReserveModalApprove as Element).classList.remove('is-active');
         // TODO: Check if car still available;
-
         try {
-            getData.startReservation(carId);
-
+            await getData.startReservation(carId);
+            router.push('/reservation');
         } catch (error) {
-            //
+            // Error occured. Either user is not yet logged in or reservation failed.
+            console.log(error);
+            // TODO: close modals.
         }
-        router.replace('/about');
     }
 }

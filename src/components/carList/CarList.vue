@@ -18,9 +18,14 @@
           v-on:click="updateCarList"
         >Refresh the list</button>
         <div class="field">
-          <label class="label">Filter cars by License plate number</label>
+          <label class="label">Filterw cars by License plate number</label>
           <div class="control">
-            <textarea class="textarea" placeholder="ABC123,GHJ456" v-model="filterByLPN" @change="filterCarListByLPN"></textarea>
+            <textarea
+              class="textarea"
+              placeholder="ABC123,GHJ456"
+              v-model="filterByLPN"
+              @change="filterCarListByLPN"
+            ></textarea>
           </div>
         </div>
       </div>
@@ -53,7 +58,11 @@
                   </div>
                 </div>
                 <footer class="card-footer">
-                  <a href="#" class="card-footer-item" v-on:click="$refs.acceptReserveModal.classList.add('is-active'); selectedCarDetails = carDetail">Details</a>
+                  <a
+                    href="#"
+                    class="card-footer-item"
+                    v-on:click="$refs.acceptReserveModal.classList.add('is-active'); selectedCarDetails = carDetail"
+                  >Details</a>
                 </footer>
               </div>
             </div>
@@ -62,7 +71,10 @@
       </div>
     </div>
     <div ref="acceptReserveModal" class="modal">
-      <div class="modal-background" v-on:click="$refs.acceptReserveModal.classList.remove('is-active')"></div>
+      <div
+        class="modal-background"
+        v-on:click="$refs.acceptReserveModal.classList.remove('is-active')"
+      ></div>
       <div class="modal-content" v-if="selectedCarDetails">
         <div class="box">
           <div class="card">
@@ -83,11 +95,11 @@
 
               <div class="content">
                 Fuel: {{ (selectedCarDetails.carAvailable.fuel_level/selectedCarDetails.carDetails.fuel_capacity*100).toFixed(0) }}%
-                <br/>
+                <br>
                 <p>Location: {{ selectedCarDetails.carAvailable.address }}</p>
                 <p>
                   Avearage fuel consumption: {{ selectedCarDetails.carDetails.avg_fuel_consumption }}l/100km.
-                  <br/>
+                  <br>
                   Current fuel amount: {{ selectedCarDetails.carAvailable.fuel_level }}l.
                   <br>
                   Could drive about: {{ (selectedCarDetails.carAvailable.fuel_level/selectedCarDetails.carDetails.avg_fuel_consumption*100).toFixed(0) }}km.
@@ -96,40 +108,110 @@
               </div>
             </div>
             <footer class="card-footer">
-              <a href="#" class="card-footer-item" v-if="false" v-on:click="$refs.acceptReserveModalApprove.classList.add('is-active');">Reserve car</a>
+              <a
+                v-if="authorizationHelper.isAuthorized"
+                href="#"
+                class="card-footer-item"
+                v-on:click="$refs.acceptReserveModalApprove.classList.add('is-active');"
+              >Reserve car</a>
             </footer>
           </div>
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" v-on:click="$refs.acceptReserveModal.classList.remove('is-active')"></button>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        v-on:click="$refs.acceptReserveModal.classList.remove('is-active');"
+      ></button>
     </div>
 
     <div ref="acceptReserveModalApprove" class="modal">
-      <div class="modal-background" v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active')"></div>
+      <div
+        class="modal-background"
+        v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active');"
+      ></div>
       <div class="modal-content" v-if="selectedCarDetails">
         <div class="box">
           <article class="message is-danger">
             <div class="message-header">
               <p>Danger</p>
-              <button class="delete" aria-label="delete" v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active')"></button>
+              <button
+                class="delete"
+                aria-label="delete"
+                v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active');"
+              ></button>
             </div>
             <div class="message-body">
-              This action will <strong>actually start</strong> car reservation with your account! Are you sure you want to do this?
+              This action will
+              <strong>actually start</strong> car reservation with your account! Are you sure you want to do this?
             </div>
             <footer class="card-footer">
-              <a href="#" class="card-footer-item button is-danger" v-on:click="reserveTheCar(selectedCarDetails.carAvailable.id)">Reserve car</a>
-              <a href="#" class="card-footer-item button is-primary" v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active');">Cancel (Take me back to safety)</a>
+              <a
+                href="#"
+                class="card-footer-item button is-danger"
+                v-on:click="$refs.finalConfirmationReservation.classList.add('is-active');"
+              >Reserve car</a>
+              <a
+                href="#"
+                class="card-footer-item button is-primary"
+                v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active');"
+              >Cancel (Take me back to safety)</a>
             </footer>
           </article>
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active')"></button>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        v-on:click="$refs.acceptReserveModalApprove.classList.remove('is-active');"
+      ></button>
+    </div>
+
+    <div ref="finalConfirmationReservation" class="modal">
+      <div
+        class="modal-background"
+        v-on:click="$refs.finalConfirmationReservation.classList.remove('is-active'); $refs.acceptReserveModalApprove.classList.remove('is-active');"
+      ></div>
+      <div class="modal-content" v-if="selectedCarDetails">
+        <div class="box">
+          <article class="message is-large">
+            <div class="message-header">
+              <p>Danger</p>
+              <button
+                class="delete"
+                aria-label="delete"
+                v-on:click="$refs.finalConfirmationReservation.classList.remove('is-active'); $refs.acceptReserveModalApprove.classList.remove('is-active');"
+              ></button>
+            </div>
+            <div
+              class="message-body"
+            >Before we do this, you have opened CityBee app, and are ready to cancel reservation, or make sure one is not pending before continuing?</div>
+            <footer class="card-footer">
+              <a
+                href="#"
+                class="card-footer-item button is-danger"
+                v-on:click="reserveTheCar(selectedCarDetails.carAvailable.id)"
+              >Yes! Let's do this!</a>
+              <a
+                href="#"
+                class="card-footer-item button is-primary"
+                v-on:click="$refs.finalConfirmationReservation.classList.remove('is-active'); $refs.acceptReserveModalApprove.classList.remove('is-active');"
+              >Cancel (Take me back to safety)</a>
+            </footer>
+          </article>
+        </div>
+      </div>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        v-on:click="$refs.finalConfirmationReservation.classList.remove('is-active'); $refs.acceptReserveModalApprove.classList.remove('is-active');"
+      ></button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import CarList from "./CarList";
+import CarList from './CarList';
 export default CarList;
 </script>
 

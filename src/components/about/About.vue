@@ -50,10 +50,10 @@
 </template>
 
 <script lang="ts">
-import vue from "vue";
+import vue from 'vue';
 
 export default vue.extend({
-  name: "About"
+    name: 'About',
 });
 </script>
 

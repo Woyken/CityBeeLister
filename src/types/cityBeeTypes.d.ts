@@ -82,6 +82,12 @@ interface LoginResponse {
     ".expires": string,
 }
 
+interface LoginResponseFailed {
+    error: string;
+    error_description: string;
+}
+
+
 // {
 //     "access_token": "............",
 //     "token_type": "bearer",
@@ -98,8 +104,8 @@ interface LoginResponse {
 
 
 interface CarDetailedInfo {
-	carDetails: CarDetails;
-	carAvailable: AvailableCar;
+    carDetails: CarDetails;
+    carAvailable: AvailableCar;
 }
 
 interface CityBeeReservationInitializeResponse {
