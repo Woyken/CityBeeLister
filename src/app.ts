@@ -9,14 +9,9 @@ import 'bulma/css/bulma.css';
 
 const vueInstance = new vue({
     router,
-    // tslint:disable-next-line:object-literal-sort-keys
-    data: {
-        exampleProperty: String,
-    },
+    // tslint:disable-next-line: object-literal-sort-keys
     el: '#app',
-    render: h => h(AppVue, {
-        props: {
-            propMessage: 'World',
-        },
-    }),
+    render: (h: any) => {
+        return h(AppVue);
+    },
 });

@@ -1,48 +1,46 @@
 {
-  "name": "citybee-lister",
-  "version": "1.0.0",
-  "private": true,
-  "description": "",
-  "main": "./dist/app.js",
-  "scripts": {
-    "build": "webpack --config build/webpack.prod.js",
-    "develop": "webpack --watch --config build/webpack.dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "vue-cli-service serve --open ./src/app.ts"
-  },
-  "keywords": [],
-  "author": {
-    "name": "Karolis Uzkuraitis",
-    "url": "https://github.com/Woyken"
-  },
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@vue/cli-service": "^3.5.1",
-    "bulma": "^0.7.4",
-    "tslint": "^5.14.0",
-    "vue": "^2.6.10",
-    "vue-class-component": "^7.0.1",
-    "vue-property-decorator": "^8.0.0",
-    "vue-router": "^3.0.2"
-  },
-  "devDependencies": {
-    "@vue/cli": "^3.5.1",
-    "@vue/cli-plugin-typescript": "^3.5.1",
-    "clean-webpack-plugin": "^2.0.1",
-    "css-loader": "^2.1.1",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "friendly-errors-webpack-plugin": "^1.7.0",
-    "html-webpack-plugin": "^3.2.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "style-loader": "^0.23.1",
-    "ts-loader": "^5.3.3",
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.3.4000",
-    "uglifyjs-webpack-plugin": "^2.1.2",
-    "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
-    "webpack-merge": "^4.2.1"
-  }
+    "name": "citybee-lister",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "vue-cli-service build --open ./src/app.ts",
+        "serve": "vue-cli-service serve --open ./src/app.ts"
+    },
+    "author": {
+        "name": "Karolis Uzkuraitis",
+        "url": "https://github.com/Woyken"
+    },
+    "license": "Apache-2.0",
+    "dependencies": {
+        "bulma": "^0.7.5",
+        "tslint": "^5.17.0",
+        "vue": "^2.6.10",
+        "vue-class-component": "^7.1.0",
+        "vue-property-decorator": "^8.2.1",
+        "vue-router": "^3.0.6",
+        "vuex": "^3.1.1"
+    },
+    "devDependencies": {
+        "@vue/cli": "^3.8.4",
+        "@vue/cli-plugin-typescript": "^3.8.1",
+        "@vue/cli-service": "^3.8.4",
+        "clean-webpack-plugin": "^3.0.0",
+        "node-sass": "^4.9.0",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.1",
+        "tslint-config-airbnb": "^5.11.1",
+        "typescript": "^3.5.2",
+        "vue-template-compiler": "^2.6.10",
+        "webpack": "^4.34.0"
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions"
+    ]
 }
