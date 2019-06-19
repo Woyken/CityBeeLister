@@ -1,3 +1,4 @@
 module.exports = {
-    publicPath: 'CityBeeLister'
+    publicPath: 'CityBeeLister',
+    productionSourceMap: false
 }
