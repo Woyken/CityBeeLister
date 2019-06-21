@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div ref="acceptReserveModal" v-bind:class="['modal', { 'is-active' : isActive }]">
+    <div ref="acceptReserveModal" v-bind:class="['modal', { 'is-active' : selectedCarDetails !== undefined }]">
       <div
         class="modal-background"
-        v-on:click="isActive = false"
+        v-on:click="$emit('onClose')"
       ></div>
       <div class="modal-content" v-if="selectedCarDetails">
         <div class="box">
@@ -51,7 +51,7 @@
       <button
         class="modal-close is-large"
         aria-label="close"
-        v-on:click="isActive = false"
+        v-on:click="$emit('onClose')"
       ></button>
     </div>
 
@@ -152,8 +152,6 @@ import authorizationHelper from '../../authorizationHelper';
 export default class AcceptAntReserveModal extends vue {
     @Prop({ default: undefined })
     public selectedCarDetails?: CarDetailedInfo;
-    @Prop({ default: false })
-    public isActive: boolean = false;
 
     private authorizationHelper = authorizationHelper;
 }

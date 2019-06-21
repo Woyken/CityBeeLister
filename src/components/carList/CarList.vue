@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <AcceptAntReserveModalVue v-bind:selectedCarDetails="selectedCarDetails" v-bind:isActive="selectedCarDetails !== null"/>
+    <AcceptAntReserveModalVue :selectedCarDetails="selectedCarDetails" @onClose="selectedCarDetails = undefined"/>
   </div>
 </template>
 
@@ -72,7 +72,7 @@ export default class CarList extends vue {
     public tasksAsString: string = '';
     public tasksOngoing: Set<TasksOngoing> = new Set();
     public filterByLPN: string = '';
-    public selectedCarDetails: CarDetailedInfo | null = null;
+    public selectedCarDetails?: CarDetailedInfo;
     private authorizationHelper = authorizationHelper;
 
     constructor() {
