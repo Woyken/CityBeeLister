@@ -2,7 +2,7 @@
   <div>
     <div class="hero-body">
       <div class="container has-text-centered">
-        <div class="column is-4 is-offset-4">
+        <div class="column">
           <h3 class="title has-text-grey">Login to CityBee</h3>
           <div class="subtitle has-text-danger" v-if="errorMessage">{{ errorMessage }}</div>
           <div class="box">
